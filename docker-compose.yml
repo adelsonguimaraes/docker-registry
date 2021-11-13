@@ -1,0 +1,36 @@
+version: '3'
+
+# servi
+services:
+  # registro
+  registry:
+    # imagem base
+    image: registry
+    # nome do container
+    container_name: registry
+    # porta host 5000 : container 5000
+    ports:
+      - 5000:5000
+    #vari de ambiente
+    environment:
+      # arquivo de registro
+      #- REGISTRY_AUTH=htpasswd
+      #- REGISTRY_AUTH_HTPASSWD_REALM=Registry Realm
+      # caminho do arquivo
+      #- REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd
+      # caminho onde os arquivos devem ser salvos
+      REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: /data
+      LETSENCRYPT_HOST: ${LETSENCRYPT_HOST}
+      VIRTUAL_HOST: ${VIRTUAL_HOST}
+    volumes:
+      # authenticacao
+      #- ./auth:/auth
+      # registro e imagens
+      - ./data:/data
+    # sempre reiniciar
+    restart: always
+
+networks:
+    default:
+        external:
+        name: nginx-proxy
