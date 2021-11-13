@@ -33,7 +33,7 @@ services:
       VIRTUAL_PORT : ${VIRTUAL_PORT}
     volumes:
       # authenticacao
-      #- ./auth:/auth
+      - ./auth:/auth
       # registro e imagens
       - ./data:/data
     # sempre reiniciar
