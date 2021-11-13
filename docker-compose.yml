@@ -9,10 +9,8 @@ services:
     # nome do container
     container_name: registry
     # porta host 5000 : container 5000
-    # ports:
-      # - 5000:5000
-    expose:
-      - 80 # expondo a porta para o proxy
+    ports:
+      - 5000:5000
     #vari de ambiente
     environment:
       # arquivo de registro
@@ -22,8 +20,6 @@ services:
       #- REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd
       # caminho onde os arquivos devem ser salvos
       REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: /data
-      LETSENCRYPT_HOST: ${LETSENCRYPT_HOST}
-      VIRTUAL_HOST: ${VIRTUAL_HOST}
     volumes:
       # authenticacao
       #- ./auth:/auth
@@ -31,8 +27,3 @@ services:
       - ./data:/data
     # sempre reiniciar
     restart: always
-
-networks:
-    default:
-        external:
-        name: nginx-proxy
